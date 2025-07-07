@@ -1,0 +1,129 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Brochure Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #eef2f3, #d6e0f0);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .typing-text {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #0d6efd;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: 3px solid #0d6efd;
+      width: 0;
+      animation: typing 3s steps(40, end) forwards, blink .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .card {
+      background-color: #ffffffcc;
+      border-radius: 1rem;
+    }
+
+    .brochure-box {
+      background-color: #fff;
+      border-radius: 0.75rem;
+      padding: 2rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .spinner {
+      display: none;
+      margin: 1rem auto;
+      text-align: center;
+    }
+
+    .spinner-border {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container py-5">
+    <div class="text-center mb-5">
+      <div class="typing-text mx-auto">🧠 Company Brochure Generator</div>
+    </div>
+
+    <form method="POST" class="card p-4 shadow-sm mb-4" onsubmit="showLoader()">
+      {% if error %}
+        <div class="alert alert-danger">{{ error }}</div>
+      {% endif %}
+
+      <div class="row g-3">
+        <div class="col-md-6 col-12">
+          <label for="company_name" class="form-label">Company Name</label>
+          <input type="text" name="company_name" class="form-control" placeholder="e.g. OpenAI" required>
+        </div>
+        <div class="col-md-6 col-12">
+          <label for="website_url" class="form-label">Company Website URL</label>
+          <input type="url" name="website_url" class="form-control" placeholder="e.g. https://openai.com" required>
+        </div>
+      </div>
+
+      <div class="d-grid mt-4">
+        <button type="submit" class="btn btn-primary btn-lg w-100">Generate Brochure</button>
+      </div>
+
+      <div class="spinner" id="loadingSpinner">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-2 fw-semibold">Generating your brochure...</p>
+      </div>
+    </form>
+
+    {% if brochure %}
+      <div class="brochure-box mt-4">
+        {{ brochure | safe }}
+      </div>
+    {% endif %}
+
+    <footer class="text-center text-muted">
+      Built with Flask, Bootstrap, Gemini API & ❤️
+    </footer>
+  </div>
+
+  <!-- Bootstrap Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    function showLoader() {
+      document.getElementById("loadingSpinner").style.display = "block";
+    }
+  </script>
+</body>
+</html>
