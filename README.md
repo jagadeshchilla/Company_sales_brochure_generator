@@ -78,4 +78,31 @@ python app.py
 ```
 Then open `http://localhost:5000` in your browser.
 
-## Deployment
+## 🚀 Deployment on Render
+
+The project is live at:  
+🔗 **[https://company-sales-brochure-generator.onrender.com](https://company-sales-brochure-generator.onrender.com)**
+
+### 🔧 Manual Deployment Steps
+
+> Render is a cloud platform that lets you deploy full-stack web apps with ease.
+
+#### ✅ 1. Push your project to GitHub
+Ensure your project includes:
+- `app.py`
+- `requirements.txt`
+- `render.yaml` (explained below)
+- All related source files (like `brochure/`, `templates/`, etc.)
+
+#### ✅ 2. Create `render.yaml` in the root
+
+```yaml
+services:
+  - type: web
+    name: brochure-generator
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python app.py"
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false  # Set this manually in Render dashboard
