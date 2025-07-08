@@ -108,6 +108,16 @@ services:
         sync: false  # Set this manually in Render dashboard
 
 ```
+#### 3. Go to Render Dashboard
+
+- Click New → Web Service
+
+- Select your repo and fill in:
+
+    - Build command: pip install -r requirements.txt
+    - Start command: python app.py
+
+
 >## Note on Model Usage
 
 Due to **free trial limitations on Gemini API**, this project currently uses the **Gemma 3 27B IT** model for brochure generation.
